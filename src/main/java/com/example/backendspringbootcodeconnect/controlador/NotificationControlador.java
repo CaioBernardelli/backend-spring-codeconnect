@@ -12,17 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/notification")
 public class NotificationControlador {
 
     @Autowired
     private NotificationService notificationService;
 
-
-    @GetMapping("/notification")
+    @GetMapping
     public List<Notification> getNotification(){
-        return new ArrayList<>();
+        return notificationService.getNotification();
     }
 
-
 }
+
