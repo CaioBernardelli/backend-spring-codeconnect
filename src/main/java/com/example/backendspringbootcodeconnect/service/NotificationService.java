@@ -19,34 +19,24 @@ public class NotificationService {
         return this.notificationRepositorio.findAll();
     }
 
-
-     public Notification getNotificationPorId (Long idNotification){
+    public Notification getNotificationPorId(Long idNotification){
         return this.notificationRepositorio.findById(idNotification).orElse(null);
-
-     }
-
+    }
 
     @Transactional
     public Notification inserirOuAtualizar(Notification notification) {
-        // Verifica o limite de caracteres da mensagem
         if (notification.getMessage().length() > 255) {
             throw new RuntimeException("O limite de caracteres para a mensagem é de 255");
         }
-
-        // Salvando a notificação
-        Notification notificationInserida = this.notificationRepositorio.save(notification);
-
-        // Verifica alguma lógica adicional, se necessário (exemplo: menor de idade, se for relevante)
-        // if (alguma_condicao) {
-        //     throw new RuntimeException("Alguma condição não permitida");
-        // }
-
-        return notificationInserida;
+        return this.notificationRepositorio.save(notification);
     }
 
-    public void apagar(Long id) {
-        this.notificationRepositorio.deleteById(id);
+    public boolean apagar(Long id) {
+        if (notificationRepositorio.existsById(id)) {
+            notificationRepositorio.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
-
-
 }
