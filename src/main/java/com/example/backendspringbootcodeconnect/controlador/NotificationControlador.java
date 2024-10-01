@@ -16,8 +16,14 @@ public class NotificationControlador {
     @Autowired
     private NotificationService notificationService;
 
+    @GetMapping("/tipo/{type}")
+    public ResponseEntity<List<Notification>> getNotificationsByType(@PathVariable String type) {
+        List<Notification> notifications = notificationService.getNotificationsByType(type);
+        return ResponseEntity.ok(notifications);
+    }
+
     @GetMapping
-    public ResponseEntity<List<Notification>> getNotification(){
+    public ResponseEntity<List<Notification>> getNotification() {
         List<Notification> notifications = notificationService.getNotification();
         return ResponseEntity.ok(notifications);
     }
@@ -47,4 +53,5 @@ public class NotificationControlador {
         Notification savedNotification = notificationService.inserirOuAtualizar(notification);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedNotification);
     }
+
 }

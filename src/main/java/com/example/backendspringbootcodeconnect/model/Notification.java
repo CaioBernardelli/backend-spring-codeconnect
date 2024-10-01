@@ -11,9 +11,10 @@ public class Notification {
     private Long id;
 
     private String message;
-
     private String date;
+    private String type;
 
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -33,4 +34,13 @@ public class Notification {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
+

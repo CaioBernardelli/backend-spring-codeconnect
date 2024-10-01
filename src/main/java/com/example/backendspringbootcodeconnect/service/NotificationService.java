@@ -1,6 +1,5 @@
 package com.example.backendspringbootcodeconnect.service;
 
-
 import com.example.backendspringbootcodeconnect.model.Notification;
 import com.example.backendspringbootcodeconnect.repositorio.NotificationRepositorio;
 import jakarta.transaction.Transactional;
@@ -15,11 +14,15 @@ public class NotificationService {
     @Autowired
     private NotificationRepositorio notificationRepositorio;
 
-    public List<Notification> getNotification(){
+    public List<Notification> getNotification() {
         return this.notificationRepositorio.findAll();
     }
 
-    public Notification getNotificationPorId(Long idNotification){
+    public List<Notification> getNotificationsByType(String type) {
+        return this.notificationRepositorio.findByType(type);
+    }
+
+    public Notification getNotificationPorId(Long idNotification) {
         return this.notificationRepositorio.findById(idNotification).orElse(null);
     }
 
@@ -30,6 +33,7 @@ public class NotificationService {
         }
         return this.notificationRepositorio.save(notification);
     }
+
 
     public boolean apagar(Long id) {
         if (notificationRepositorio.existsById(id)) {

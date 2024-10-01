@@ -6,14 +6,15 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-//Interface que faz os metodos crud , sem precisar dos códigos.
 public interface NotificationRepositorio extends JpaRepository<Notification, Long> {
-
 
     public List<Notification> findByDate(String date);
 
+    // Notificações para administradores (relacionadas a alterações em usuários ou cursos)
+    public List<Notification> findByType(String type);
 
-    // consulta mais complexa em jpql  // anotação query e metodo public
-    @Query("SELECT n FROM Notification n WHERE n.date = '2011-10-10'")
-    public List<Notification> getNotificationByDate();
+    // Consulta JPQL para retornar notificações de um tipo específico
+    @Query("SELECT n FROM Notification n WHERE n.type = ?1")
+    public List<Notification> getNotificationsByType(String type);
 }
+
